@@ -5,6 +5,8 @@ signal mosso(nuova_cella : Vector2i)
 var cella: Vector2i = Grid.ARENA_ORIGIN + Grid.ARENA_SIZE / 2
 var direzione: Vector2i = Vector2i.RIGHT
 var prossima_direzione: Vector2i = Vector2i.RIGHT
+var corpo : Array[Vector2i]
+var cresce : bool = false
 @onready var sprite_2d: AnimatedSprite2D = $CharacterBody2D/Sprite2D
 @onready var timer: Timer = $"../Timer"
 
@@ -39,7 +41,17 @@ func _on_timer_timeout() -> void:
 		print("Game over")
 		timer.stop()
 		return
+	corpo.insert(0, cella)
+	if cresce:
+		cresce = false
+	else:
+		corpo.remove_at(corpo.size() - 1)
 	cella += prossima_direzione
 	position = Grid.cell_to_pixel(cella)
 	sprite_2d.play(ANIM_BY_DIR[direzione])
 	mosso.emit(cella)
+	print(corpo)
+	
+	
+func cresci() -> void:
+	cresce = true

@@ -11,5 +11,7 @@ func _ready() -> void:
 	food.posiziona(Grid.random_cell())
 
 func _on_player_mosso(nuova_cella: Vector2i) -> void:
-	if player.cella == food.cella:
-		print("Mangiato")
+	if nuova_cella == food.cella:
+		player.cresci()
+		food.posiziona(Grid.random_cell())
+		
