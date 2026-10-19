@@ -120,4 +120,5 @@ autostart = true
 visible = false
 position = Vector2(55.658848, 69.97862)
 
+[connection signal="mosso" from="Player" to="." method="_on_player_mosso"]
 [connection signal="timeout" from="Timer" to="Player" method="_on_timer_timeout"]

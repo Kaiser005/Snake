@@ -1,5 +1,6 @@
 extends Node2D
 
+signal mosso(nuova_cella : Vector2i)
 
 var cella: Vector2i = Grid.ARENA_ORIGIN + Grid.ARENA_SIZE / 2
 var direzione: Vector2i = Vector2i.RIGHT
@@ -41,3 +42,4 @@ func _on_timer_timeout() -> void:
 	cella += prossima_direzione
 	position = Grid.cell_to_pixel(cella)
 	sprite_2d.play(ANIM_BY_DIR[direzione])
+	mosso.emit(cella)
