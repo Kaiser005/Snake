@@ -1,8 +1,9 @@
 [gd_scene format=4 uid="uid://du8bd10sloh8o"]
 
-[ext_resource type="Script" uid="uid://dhhyd02w2giku" path="res://scripts/main.gd" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://dftrfyxt6c8fo" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://cttoouthhly3" path="res://sprite/snake.png" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://c1a2nh06rywoo" path="res://scenes/player.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://b4v6cf8p7nev4" path="res://scenes/food.tscn" id="4_jyhfs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wfyh"]
 texture = ExtResource("1_o5qli")
@@ -108,10 +109,15 @@ tile_map_data = PackedByteArray("AAAIAAMAAAAMAAAAAAAIAAQAAAAMAAAAAAAIAAUAAAAMAAA
 tile_set = SubResource("TileSet_6pmnr")
 
 [node name="Player" parent="." unique_id=2068208033 instance=ExtResource("3_sugp2")]
+z_index = 1
 position = Vector2(150, 93)
 
 [node name="Timer" type="Timer" parent="." unique_id=1289304259]
-wait_time = 0.13
+wait_time = 0.15
 autostart = true
+
+[node name="Food" parent="." unique_id=344364736 instance=ExtResource("4_jyhfs")]
+visible = false
+position = Vector2(55.658848, 69.97862)
 
 [connection signal="timeout" from="Timer" to="Player" method="_on_timer_timeout"]
