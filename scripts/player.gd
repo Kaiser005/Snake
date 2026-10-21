@@ -1,12 +1,14 @@
 extends Node2D
 
 signal mosso(nuova_cella : Vector2i)
+const SEGMENT_SCENE := preload("res://scenes/body_segment.tscn")
 
 var cella: Vector2i = Grid.ARENA_ORIGIN + Grid.ARENA_SIZE / 2
 var direzione: Vector2i = Vector2i.RIGHT
 var prossima_direzione: Vector2i = Vector2i.RIGHT
 var corpo : Array[Vector2i]
 var cresce : bool = false
+var segmenti : Array[Node2D] = []
 @onready var sprite_2d: AnimatedSprite2D = $CharacterBody2D/Sprite2D
 @onready var timer: Timer = $"../Timer"
 
@@ -41,17 +43,27 @@ func _on_timer_timeout() -> void:
 		print("Game over")
 		timer.stop()
 		return
+	#TODO - controllo collisione coda
+	
 	corpo.insert(0, cella)
 	if cresce:
 		cresce = false
+		var nuovo := SEGMENT_SCENE.instantiate() as Node2D
+		add_child(nuovo)
+		segmenti.push_front(nuovo)
 	else:
 		corpo.remove_at(corpo.size() - 1)
-	cella += prossima_direzione
+		if not segmenti.is_empty():
+			segmenti.push_front(segmenti.pop_back())
+	
+	if not segmenti.is_empty():
+		segmenti[0].position = Grid.cell_to_pixel(cella)
+	
+	
+	cella = cella_temp
 	position = Grid.cell_to_pixel(cella)
 	sprite_2d.play(ANIM_BY_DIR[direzione])
-	mosso.emit(cella)
-	print(corpo)
-	
+	mosso.emit(cella)	
 	
 func cresci() -> void:
 	cresce = true

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://crbolcc5e44ei"]
+
+[ext_resource type="Texture2D" uid="uid://cttoouthhly3" path="res://sprite/snake.png" id="1_po862"]
+
+[node name="Body_Segment" type="Node2D" unique_id=1269824271]
+top_level = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=69913107]
+z_index = 1
+texture = ExtResource("1_po862")
+hframes = 16
+vframes = 16
+frame = 53
