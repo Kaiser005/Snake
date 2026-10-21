@@ -39,11 +39,15 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_timer_timeout() -> void:
 	direzione = prossima_direzione
 	var cella_temp = cella + prossima_direzione
-	if not Grid.is_inside_arena(cella_temp):
+	var tocca_corpo : bool = cella_temp in corpo
+	var coda_si_sposta : bool = (not corpo.is_empty()
+									and cella_temp == corpo.back()
+									and not cresce)
+	
+	if not Grid.is_inside_arena(cella_temp) or (tocca_corpo and not coda_si_sposta):
 		print("Game over")
 		timer.stop()
 		return
-	#TODO - controllo collisione coda
 	
 	corpo.insert(0, cella)
 	if cresce:
